@@ -584,6 +584,55 @@
     const noMsg = document.getElementById('no-messages');
 
     if (!form) return;
+    const ADMIN_PASSWORD = "nizam2026";
+
+let adminMode = false;
+
+const adminTrigger =
+    document.getElementById(
+        "guest-messages-title"
+    );
+
+let tapCount = 0;
+
+if (adminTrigger) {
+
+    adminTrigger.addEventListener(
+        "click",
+        () => {
+
+            tapCount++;
+
+            setTimeout(
+                () => tapCount = 0,
+                1500
+            );
+
+            if (tapCount >= 5) {
+
+                tapCount = 0;
+
+                const pw = prompt(
+                    "Enter admin password"
+                );
+
+                if (
+                    pw === ADMIN_PASSWORD
+                ) {
+
+                    adminMode =
+                        !adminMode;
+
+                    alert(
+                        adminMode
+                        ? "Admin Mode ON"
+                        : "Admin Mode OFF"
+                    );
+                }
+            }
+        }
+    );
+}
 
     // Character Counter
     msgInput.addEventListener('input', () => {
@@ -656,7 +705,10 @@
 
             snapshot.forEach((doc) => {
 
-                const m = doc.data();
+                const messageId = docSnap.id;
+
+                const m = docSnap.data();
+                const messageId = docSnap.id;
 
                 const card =
                     document.createElement('div');
@@ -715,7 +767,59 @@
                         ${m.message}
                     </p>
                 `;
+                if (adminMode) {
 
+    const delBtn =
+        document.createElement(
+            "button"
+        );
+
+    delBtn.innerHTML =
+        "🗑 Delete";
+
+    delBtn.style.cssText = `
+        margin-top:12px;
+        padding:8px 16px;
+        border:none;
+        border-radius:20px;
+        background:#b22222;
+        color:white;
+        cursor:pointer;
+    `;
+
+    delBtn.onclick =
+    async () => {
+
+        if (
+            !confirm(
+                "Delete this message?"
+            )
+        ) return;
+
+        try {
+
+            await firebaseFunctions
+            .deleteDoc(
+
+                firebaseFunctions.doc(
+                    firebaseDB,
+                    "messages",
+                    messageId
+                )
+            );
+
+        } catch(err){
+
+            console.error(err);
+
+            alert(
+                "Delete failed"
+            );
+        }
+    };
+
+    card.appendChild(delBtn);
+}
                 listEl.appendChild(card);
             });
         }
