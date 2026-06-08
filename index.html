@@ -8,6 +8,40 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+        <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+    import {
+    getFirestore,
+    collection,
+    addDoc,
+    query,
+    orderBy,
+    onSnapshot,
+    serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+    apiKey: "AIzaSyCKkC8c7NW4CbaKQvf2WV0L2n1u8lT-DPU",
+    authDomain: "nizams-wedding.firebaseapp.com",
+    projectId: "nizams-wedding",
+    storageBucket: "nizams-wedding.firebasestorage.app",
+    messagingSenderId: "838784406552",
+    appId: "1:838784406552:web:e84bc250743e72d62ddf6d"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    window.firebaseDB = db;
+    window.firebaseFunctions = {
+    collection,
+    addDoc,
+    query,
+    orderBy,
+    onSnapshot,
+    serverTimestamp
+    };
+    </script>
     <script src="script.js" defer></script>
 </head>
 <body class="overflow-hidden">
@@ -354,7 +388,7 @@
 
         <div class="reveal scale-up glass-panel" style="border-radius: 24px; overflow: hidden; text-align: center;">
             <div class="photo-frame" style="margin: 24px; border-radius: 16px; overflow: hidden;">
-                    <img src="FAMILY.webp" alt="Our Family" style="width: 100%; height: 440px; object-fit: cover; border-radius: 12px;">
+                    <img src="FAMILY.webp" alt="Our Family" style="width: 100%; height: 440px; object-fit: scale-down; border-radius: 12px;">
             </div>
             <div style="padding: 4px 32px 40px;">
                 <p class="cultural" style="font-size: 14px; color: var(--gold); letter-spacing: 3px; text-transform: uppercase;">The Zia Family</p>
@@ -415,7 +449,7 @@
             <!-- Groom 1 -->
             <div class="reveal slide-left wedding-card glass-panel" style="border-radius: 24px;">
                 <div class="photo-frame" style="margin: 18px; border-radius: 14px; overflow: hidden;">
-                    <img src="GROOM1.webp" alt="Mohammed Zameer Uddin" style="width: 100%; height: 300px; object-fit: cover; border-radius: 10px;">
+                    <img src="GROOM1.webp" alt="Mohammed Zameer Uddin" style="width: 100%; height: 300px; object-fit: contain; border-radius: 10px;">
                 </div>
                 <div class="groom-body">
                     <h3 class="heading" style="font-size: 26px; color: var(--cream);">Mohammed Zameer Uddin</h3>
@@ -429,7 +463,7 @@
             <!-- Groom 2 -->
             <div class="reveal slide-right wedding-card glass-panel" style="border-radius: 24px;">
                 <div class="photo-frame" style="margin: 18px; border-radius: 14px; overflow: hidden;">
-                    <img src="GROOM2.webp" alt="Mohammed Zubair Uddin" style="width: 100%; height: 300px; object-fit: cover; border-radius: 10px;">
+                    <img src="GROOM2.webp" alt="Mohammed Zubair Uddin" style="width: 100%; height: 300px; object-fit: contain; border-radius: 10px;">
                 </div>
                 <div class="groom-body">
                     <h3 class="heading" style="font-size: 26px; color: var(--cream);">Mohammed Zubair Uddin</h3>
@@ -529,34 +563,40 @@
 
         <div class="reveal-stagger gallery-grid">
             <div class="gallery-item photo-frame" style="padding: 0; border-radius: 16px;">
-                <img src="GRANDPARENTS.webp" loading="lazy" alt="Grandparents" style="object-fit:cover;">
+                <img src="GRANDPARENTS.webp" loading="lazy" alt="Grandparents" style="object-fit:scale-down;">
                 <div class="gallery-caption heading">Grandparents' Blessings</div>
             </div>
             <div class="gallery-item photo-frame" style="padding: 0; border-radius: 16px;">
-                <img src="PHOTO1.webp" loading="lazy" alt="Childhood" style="object-fit:cover;">
+                <img src="PHOTO1.webp" loading="lazy" alt="Childhood" style="object-fit:scale-down;">
                 <div class="gallery-caption heading">Childhood Days</div>
             </div>
             <div class="gallery-item photo-frame" style="padding: 0; border-radius: 16px;">
-                <img src="PHOTO2.webp" loading="lazy" alt="Brothers" style="object-fit:cover;">
+                <img src="PHOTO2.webp" loading="lazy" alt="Brothers" style="object-fit:scale-down;">
                 <div class="gallery-caption heading">Brothers Forever</div>
             </div>
             <div class="gallery-item photo-frame" style="padding: 0; border-radius: 16px;">
-                <img src="FAMILY.webp" loading="lazy" alt="Family" style="object-fit:contain;">
+                <img src="FAMILY.webp" loading="lazy" alt="Family" style="object-fit:scale-down;">
                 <div class="gallery-caption heading">The Zia Family</div>
             </div>
             <div class="gallery-item photo-frame" style="padding: 0; border-radius: 16px;">
-                <img src="GROOM1.webp" loading="lazy" alt="Zameer" style="object-fit:cover;">
+                <img src="groom1.webp" loading="lazy" alt="Zameer" style="object-fit:scale-down;">
                 <div class="gallery-caption heading">Zameer Uddin</div>
             </div>
             <div class="gallery-item photo-frame" style="padding: 0; border-radius: 16px;">
-                <img src="GROOM2.webp" loading="lazy" alt="Zubair" style="object-fit:cover;">
+                <img src="GROOM2.webp" loading="lazy" alt="Zubair" style="object-fit:scale-down;">
             <div class="gallery-caption heading">Zubair Uddin</div>
             </div>
-            
+            <div class="gallery-item photo-frame" style="padding: 0; border-radius: 16px;">
+                <img src="PHOTO3.webp" loading="lazy"alt="Family Moments" style="object-fit:scale-down;">
+                <div class="gallery-caption heading">Family Moments</div>
             </div>
-            
+            <div class="gallery-item photo-frame" style="padding: 0; border-radius: 16px;">
+                <img src="PHOTO4.webp" loading="lazy" alt="Joyful Times" style="object-fit:scale-down;">
+                <div class="gallery-caption heading">Joyful Times</div>
             </div>
-            
+            <div class="gallery-item photo-frame" style="padding: 0; border-radius: 16px;">
+                <img src="PHOTO5.webp" loading="lazy" alt="Cherished Bonds" style="object-fit:scale-down;">
+                <div class="gallery-caption heading">Cherished Bonds</div>
             </div>
         </div>
     </section>
@@ -621,7 +661,7 @@
                 </p>
             </form>
             <p style="margin-top: 14px; font-size: 13px; color: rgba(201,168,76,0.6);">
-                ⓘ Messages are stored locally on this device and synced across all visitors.
+                ⓘ Messages are shared live with all guests visiting this invitation.
             </p>
         </div>
 
