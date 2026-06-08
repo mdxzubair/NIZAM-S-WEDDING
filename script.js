@@ -584,7 +584,7 @@
     const noMsg = document.getElementById('no-messages');
 
     if (!form) return;
-    const ADMIN_PASSWORD = "nizam2026";
+    const ADMIN_PASSWORD = "ni mlm";
 
 let adminMode =
 localStorage.getItem("adminMode") === "true";
@@ -598,9 +598,7 @@ let tapCount = 0;
 
 if (adminTrigger) {
 
-    adminTrigger.addEventListener(
-        "click",
-        () => {
+    adminTrigger.addEventListener("click",() => {
 
             tapCount++;
 
@@ -666,8 +664,7 @@ if (adminTrigger) {
                 {
                     name,
                     message,
-                    timestamp:
-                        firebaseFunctions.serverTimestamp()
+                    timestamp: firebaseFunctions.serverTimestamp()
                 }
             );
 
@@ -696,7 +693,43 @@ if (adminTrigger) {
             "desc"
         )
     );
+    function timeAgo(timestamp) {
 
+    if (!timestamp) return "Just now";
+
+    const date =
+        timestamp.toDate
+        ? timestamp.toDate()
+        : new Date(timestamp);
+
+    const diff =
+        Date.now() - date.getTime();
+
+    const mins =
+        Math.floor(diff / 60000);
+
+    const hours =
+        Math.floor(diff / 3600000);
+
+    const days =
+        Math.floor(diff / 86400000);
+
+    if (mins < 1) return "Just now";
+
+    if (mins < 60)
+        return mins + " min ago";
+
+    if (hours < 24)
+        return hours + " hour ago";
+
+    if (days === 1)
+        return "Yesterday";
+
+    if (days < 30)
+        return days + " days ago";
+
+    return date.toLocaleDateString();
+}
     firebaseFunctions.onSnapshot(
         q,
         (snapshot) => {
@@ -769,6 +802,13 @@ if (adminTrigger) {
                         line-height:1.6;
                     ">
                         ${m.message}
+                    </p>
+
+                    <p style="
+                        color:#FAF3E0;
+                        line-height:1.6;
+                    ">
+                        ${timeAgo(m.timestamp)}
                     </p>
                 `;
                 if (adminMode) {
