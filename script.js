@@ -586,7 +586,8 @@
     if (!form) return;
     const ADMIN_PASSWORD = "nizam2026";
 
-let adminMode = false;
+let adminMode =
+localStorage.getItem("adminMode") === "true";
 
 const adminTrigger =
     document.getElementById(
@@ -620,14 +621,19 @@ if (adminTrigger) {
                     pw === ADMIN_PASSWORD
                 ) {
 
-                    adminMode =
-                        !adminMode;
+                    adminMode = !adminMode;
+
+                    localStorage.setItem(
+                        "adminMode",
+                        adminMode
+                    );
 
                     alert(
                         adminMode
                         ? "Admin Mode ON"
                         : "Admin Mode OFF"
                     );
+                    location.reload();
                 }
             }
         }
@@ -703,9 +709,7 @@ if (adminTrigger) {
                 return;
             }
 
-            snapshot.forEach((doc) => {
-
-                const messageId = docSnap.id;
+            snapshot.forEach((docSnap) => {
 
                 const m = docSnap.data();
                 const messageId = docSnap.id;
