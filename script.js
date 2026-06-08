@@ -644,17 +644,6 @@
             }
         }
 
-        function getMessages() {
-            try {
-                return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-            } catch(e) { return []; }
-        }
-
-        function saveMessages(arr) {
-            try {
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(arr));
-            } catch(e) {}
-        }
 
         function timeAgo(ts) {
             const d = Date.now() - ts;
@@ -841,19 +830,32 @@
         });
 
         // Submit handler
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const name = nameInput.value.trim();
-            const message = msgInput.value.trim();
-            if (!name || !message) return;
+        form.addEventListener('submit', async (e) => {
+    e.preventDefault();
 
-            const msgs = getMessages();
-            msgs.push({
+    const name = nameInput.value.trim();
+    const message = msgInput.value.trim();
+
+    if (!name || !message) return;
+
+    try {
+        await firebaseFunctions.addDoc(
+            firebaseFunctions.collection(firebaseDB, "messages"),
+            {
                 name,
                 message,
-                timestamp: Date.now()
-            });
-            saveMessages(msgs);
+                timestamp: firebaseFunctions.serverTimestamp()
+            }
+        );
+
+        form.reset();
+        charCount.textContent = "0 / 300 characters";
+
+    } catch (err) {
+        console.error(err);
+        alert("Failed to send message");
+    }
+});
 
             // Clear form
             nameInput.value = '';
@@ -892,7 +894,7 @@
         // Initial render
         renderMessages();
         renderTimestamps();
-    })();
+        
 
     // ═══════════ PREMIUM TOUCH / HOVER GLOW EFFECT ═══════════
     (function(){
