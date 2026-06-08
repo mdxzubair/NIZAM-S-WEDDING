@@ -173,8 +173,8 @@ body {
                 rgba(13,59,46,0.35) 0%,
                 rgba(8,8,8,0.6) 50%,
                 rgba(13,59,46,0.25) 100%);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(4s);
+            -webkit-backdrop-filter: blur(4px);
             border: 1px solid rgba(201,168,76,0.15);
         }
 
@@ -363,7 +363,7 @@ body {
         .floating-audio {
             position: fixed; bottom: 24px; right: 24px; z-index: 9000;
             background: rgba(8,8,8,0.9); border: 1px solid rgba(201,168,76,0.4);
-            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
             box-shadow: 0 10px 40px rgba(0,0,0,0.5);
             border-radius: 20px; padding: 12px 20px;
             display: flex; align-items: center; gap: 14px;
@@ -423,7 +423,7 @@ body {
             text-align: center;
             background: rgba(13,59,46,0.5);
             border: 2px solid rgba(201,168,76,0.4);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(4px);
             box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 0 4px rgba(13,59,46,0.6), 0 0 0 6px rgba(201,168,76,0.15);
         }
         .scratch-card.grand {
@@ -835,8 +835,8 @@ body {
             border: 1px solid rgba(201,168,76,0.35);
             border-radius: 16px;
             padding: 22px 10px;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
             box-shadow: 0 15px 35px rgba(0,0,0,0.4), inset 0 1px 0 rgba(232,201,122,0.1);
             position: relative;
             overflow: hidden;
@@ -1070,4 +1070,19 @@ section,
 div,
 main {
     max-width: 100%;
+}
+@media (max-width: 768px){
+
+    #particle-canvas{
+        display:none !important;
+    }
+
+    #bg-aurora{
+        display:none !important;
+    }
+
+    #bg-shimmer{
+        display:none !important;
+    }
+
 }
